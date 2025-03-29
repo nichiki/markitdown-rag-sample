@@ -1,0 +1,30 @@
+{
+    "name": "python-boilerplate",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.mypy-type-checker",
+                "charliermarsh.ruff",
+                "LittleFoxTeam.vscode-python-test-adapter",
+                "saoudrizwan.claude-dev",
+                "RooVeterinaryInc.roo-cline"
+            ],
+            "settings": {
+                "[python]": {
+                    "editor.formatOnSave": true,
+                    "editor.codeActionsOnSave": {
+                        "source.fixAll": "explicit",
+                        "source.organizeImports": "explicit"
+                    },
+                    "editor.defaultFormatter": "charliermarsh.ruff"
+                },
+                "mypy-type-checker.args": ["--disallow-untyped-defs"],
+                "cline.chromeExecutablePath": "/usr/bin/chromium"
+            }
+        }
+    }
+}

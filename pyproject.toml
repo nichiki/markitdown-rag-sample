@@ -1,0 +1,44 @@
+[project]
+name = "python-boilerplate"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.5",
+    "pytest-cov==6.0.0",
+    "ruff==0.11.2",
+    "mypy==1.14.1",
+]
+
+[tool.ruff]
+# Linter と Formatter の設定
+line-length = 88
+target-version = "py312"
+select = ["E", "F", "I", "N", "W", "B", "A", "C4", "UP", "ANN", "RUF"]
+ignore = ["ANN101"]  # self の型アノテーションは不要
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.mypy]
+python_version = "3.12"
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+strict_optional = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "--cov=src"
