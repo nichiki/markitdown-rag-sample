@@ -1,63 +1,78 @@
-# Python Boilerplate
+# MarkItDown RAG アプリケーション
 
-Python プロジェクトのボイラープレート（テンプレート）です。devcontainer を使用した開発環境の標準化と、コード品質ツール、AI開発ツールの設定が含まれています。このテンプレートを使用して、高品質な Python プロジェクトを素早く開始できます。
+Microsoftの「markitdown」リポジトリを活用して、あらゆるデータをマークダウンに変換し、RAG（Retrieval-Augmented Generation）機能とドキュメント管理UIを備えた検証用アプリケーションです。
 
-## 特徴
+## 主要機能
 
-- **devcontainer による開発環境の標準化**
-  - Python 3.12
-  - uv パッケージマネージャー（高速な依存関係管理）
-  - Chromium ブラウザと日本語フォントの事前インストール
+- **ドキュメント変換機能**
+  - markitdownを使用して様々な形式のファイル（PDF、Word、Excel、画像、音声など）をマークダウンに変換
+  - 変換したマークダウンの保存と管理
 
-- **コード品質ツール**
-  - Ruff によるリンティングとフォーマット（保存時に自動適用）
-  - mypy による厳格な静的型チェック
-  - pytest と pytest-cov によるテストとカバレッジ測定
+- **RAG機能**
+  - 変換したマークダウンドキュメントを検索可能なデータベースに格納
+  - OpenAIの埋め込みモデルを使用してドキュメントのベクトル化
+  - クエリに基づいて関連情報を取得
+  - LangChainを使用したRAG機能の実装
 
-- **AI開発ツール**
-  - Cline 用のルール定義（.clinerules/）
-  - browser_action 対応（Web アプリケーションのテスト用）
-  - clinerules-bank による言語・フレームワーク固有のガイドライン
+- **ドキュメント管理UI**
+  - Streamlitを使用したウェブインターフェース
+  - ドキュメントのアップロード、検索、閲覧機能
 
-- **コーディング規約**
-  - Google スタイルの docstring
-  - 厳格な型アノテーション
-  - 関数型アプローチの推奨
-  - 単一責任の原則などのベストプラクティス
+## 技術スタック
+
+- **言語**: Python 3.12+
+- **フレームワーク**:
+  - Streamlit: UIとバックエンドロジックを統合
+  - LangChain: RAG機能の実装
+- **ライブラリ**:
+  - markitdown: ドキュメント変換
+  - OpenAI API: 埋め込みモデル
+  - ChromaDB: ベクトルデータベース
+- **開発ツール**:
+  - pytest: テスト
+  - ruff: リンティングとフォーマット
+  - mypy: 静的型チェック
 
 ## セットアップ
 
-このリポジトリは VS Code の devcontainer 機能を使用しています。VS Code と Docker がインストールされていれば、自動的に開発環境がセットアップされます。
-
-1. リポジトリをクローンまたはテンプレートとして使用
+1. リポジトリをクローン
    ```bash
-   git clone https://github.com/yourusername/python-boilerplate.git
-   cd python-boilerplate
+   git clone https://github.com/yourusername/markitdown-rag.git
+   cd markitdown-rag
    ```
 
-2. VS Code で開く
+2. 仮想環境を作成して有効化
    ```bash
-   code .
+   python -m venv venv
+   source venv/bin/activate  # Linuxの場合
+   # または
+   venv\Scripts\activate  # Windowsの場合
    ```
 
-3. VS Code が devcontainer を検出し、「Reopen in Container」を提案するので、それをクリックします。
-   - または、コマンドパレット（F1）から「Remote-Containers: Reopen in Container」を選択
-
-4. 開発用依存関係をインストール
+3. 依存関係をインストール
    ```bash
-   uv sync --dev
+   pip install -e .
+   ```
+
+4. 環境変数を設定
+   ```bash
+   cp .env.example .env
+   # .envファイルを編集してOPENAI_API_KEYを設定
    ```
 
 ## 使用方法
 
-### 新しいプロジェクトの作成
+### アプリケーションの実行
 
-1. このリポジトリをテンプレートとして使用
-2. プロジェクト名や説明を変更（pyproject.toml）
-3. 必要な依存関係を追加（初期状態では空になっています）
-   ```bash
-   uv add package_name
-   ```
+```bash
+streamlit run src/app.py
+```
+
+### ドキュメントの変換と検索
+
+1. Streamlit UIを通じてドキュメントをアップロード
+2. 「処理」ボタンをクリックしてドキュメントを変換
+3. 検索ボックスにクエリを入力して関連情報を検索
 
 ### コード品質管理
 
@@ -81,7 +96,7 @@ Python プロジェクトのボイラープレート（テンプレート）で�
 
 ### コーディング規約
 
-このプロジェクトでは、`clinerules-bank/languages/python/` に定義された詳細なコーディング規約に従います：
+このプロジェクトでは、以下のコーディング規約に従います：
 
 - すべてのファイル、クラス、関数、メソッドに docstring を記述
 - すべての関数とメソッドに型アノテーションを使用
@@ -101,25 +116,23 @@ Python プロジェクトのボイラープレート（テンプレート）で�
 ## ディレクトリ構造
 
 ```
-python-boilerplate/
-├── .clinerules/           # Cline のルール定義
-│   ├── 00-core-principles.md
-│   ├── 01-development-workflow.md
-│   └── ...
-├── .devcontainer/         # devcontainer の設定
-│   ├── Dockerfile
-│   └── devcontainer.json
-├── clinerules-bank/       # 言語・フレームワーク固有のガイドライン
-│   ├── languages/
-│   │   └── python/
-│   │       ├── coding-style.md
-│   │       └── testing-guidelines.md
-│   └── ...
+markitdown-rag/
 ├── src/                   # メインのソースコード
+│   ├── core/              # コアロジック
+│   │   ├── __init__.py
+│   │   ├── document_processor.py  # markitdownを使用したドキュメント処理
+│   │   ├── embeddings.py  # 埋め込み生成（OpenAI経由）
+│   │   └── rag.py         # LangChainを使用したRAG機能
+│   ├── db/                # データベース関連
+│   │   ├── __init__.py
+│   │   └── vector_store.py  # ベクトルストア操作（ChromaDB）
+│   └── app.py             # Streamlitアプリケーション
 ├── tests/                 # テストコード
-├── .clineignore           # Cline の除外設定
+├── data/                  # データ保存ディレクトリ
+│   ├── raw/               # 元のドキュメント
+│   ├── processed/         # 処理済みマークダウン
+│   └── embeddings/        # 埋め込みデータ
 ├── .env.example           # 環境変数の例
 ├── .gitignore             # Git の除外設定
-├── .python-version        # Python バージョン指定（3.12）
 ├── README.md              # このファイル
 └── pyproject.toml         # プロジェクト設定
