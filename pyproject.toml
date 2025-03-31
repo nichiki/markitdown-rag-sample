@@ -1,7 +1,7 @@
 [project]
-name = "markitdown-rag"
+name = "markitdown-rag-sample"
 version = "0.1.0"
-description = "RAG検証アプリケーション - markitdownを活用したドキュメント変換とRAG機能"
+description = "RAG検証アプリケーション - markitdownを活用したドキュメント変換とRAG機能のサンプル実装"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

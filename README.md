@@ -1,11 +1,21 @@
-# MarkItDown RAG アプリケーション
+# MarkItDown RAG サンプルアプリケーション
 
-Microsoftの「markitdown」リポジトリを活用して、あらゆるデータをマークダウンに変換し、RAG（Retrieval-Augmented Generation）機能とドキュメント管理UIを備えた検証用アプリケーションです。
+Microsoftの「markitdown」リポジトリを活用して、あらゆるデータをマークダウンに変換し、RAG（Retrieval-Augmented Generation）機能とドキュメント管理UIを備えた検証用サンプルアプリケーションです。
 
 ## 主要機能
 
 - **ドキュメント変換機能**
-  - markitdownを使用して様々な形式のファイル（PDF、Word、Excel、画像、音声など）をマークダウンに変換
+  - markitdownを使用して様々な形式のファイルをマークダウンに変換
+  - 対応形式:
+    - PDF (.pdf)
+    - Word (.docx)
+    - PowerPoint (.pptx)
+    - Excel (.xlsx)
+    - テキスト (.txt)
+    - Markdown (.md)
+    - HTML (.html, .htm)
+    - テキストベースの形式 (.csv, .json, .xml)
+    - 画像ファイル (.jpg, .jpeg, .png)
   - 変換したマークダウンの保存と管理
 
 - **RAG機能**
@@ -37,8 +47,8 @@ Microsoftの「markitdown」リポジトリを活用して、あらゆるデー�
 
 1. リポジトリをクローン
    ```bash
-   git clone https://github.com/yourusername/markitdown-rag.git
-   cd markitdown-rag
+   git clone https://github.com/nichiki/python-sandbox.git
+   cd python-sandbox
    ```
 
 2. 仮想環境を作成して有効化
@@ -51,7 +61,11 @@ Microsoftの「markitdown」リポジトリを活用して、あらゆるデー�
 
 3. 依存関係をインストール
    ```bash
+   # 開発モードでインストール（ソースコードの変更がすぐに反映される）
    pip install -e .
+   
+   # または、依存関係のみをインストール
+   pip install -r requirements.txt  # requirements.txtがある場合
    ```
 
 4. 環境変数を設定
@@ -113,26 +127,44 @@ streamlit run src/app.py
 - コードカバレッジは 80% 以上を目標
 - 外部依存はモックを使用
 
+## トラブルシューティング
+
+### よくある問題と解決方法
+
+1. **OpenAI APIキーの設定**
+   - 問題: `OpenAI API key not found` というエラーが表示される
+   - 解決: `.env` ファイルに `OPENAI_API_KEY=your_api_key` を設定してください
+
+2. **ファイルのアップロードエラー**
+   - 問題: ファイルのアップロードに失敗する
+   - 解決: ファイルサイズが200MB以下であることを確認してください
+
+3. **ベクトルデータベースのエラー**
+   - 問題: `ChromaDB` 関連のエラーが表示される
+   - 解決: `data/embeddings` ディレクトリを削除して再試行してください
+
 ## ディレクトリ構造
 
 ```
-markitdown-rag/
+markitdown-rag-sample/
 ├── src/                   # メインのソースコード
 │   ├── core/              # コアロジック
 │   │   ├── __init__.py
 │   │   ├── document_processor.py  # markitdownを使用したドキュメント処理
-│   │   ├── embeddings.py  # 埋め込み生成（OpenAI経由）
 │   │   └── rag.py         # LangChainを使用したRAG機能
 │   ├── db/                # データベース関連
 │   │   ├── __init__.py
 │   │   └── vector_store.py  # ベクトルストア操作（ChromaDB）
 │   └── app.py             # Streamlitアプリケーション
 ├── tests/                 # テストコード
-├── data/                  # データ保存ディレクトリ
+├── data/                  # データ保存ディレクトリ（.gitignoreに含まれる）
 │   ├── raw/               # 元のドキュメント
 │   ├── processed/         # 処理済みマークダウン
 │   └── embeddings/        # 埋め込みデータ
+├── docs/                  # ドキュメント
+│   └── references/        # 参考資料
 ├── .env.example           # 環境変数の例
 ├── .gitignore             # Git の除外設定
 ├── README.md              # このファイル
+├── mypy.ini               # mypy設定
 └── pyproject.toml         # プロジェクト設定
