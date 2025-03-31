@@ -1317,7 +1317,7 @@ all = [
 ]
 
 [[package]]
-name = "markitdown-rag"
+name = "markitdown-rag-sample"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
