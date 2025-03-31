@@ -61,11 +61,8 @@ Microsoftの「markitdown」リポジトリを活用して、あらゆるデー�
 
 3. 依存関係をインストール
    ```bash
-   # 開発モードでインストール（ソースコードの変更がすぐに反映される）
-   pip install -e .
-   
-   # または、依存関係のみをインストール
-   pip install -r requirements.txt  # requirements.txtがある場合
+   # 依存関係をインストール
+   uv sync
    ```
 
 4. 環境変数を設定
