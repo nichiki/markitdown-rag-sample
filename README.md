@@ -47,8 +47,8 @@ Microsoftの「markitdown」リポジトリを活用して、あらゆるデー�
 
 1. リポジトリをクローン
    ```bash
-   git clone https://github.com/nichiki/python-sandbox.git
-   cd python-sandbox
+   git clone https://github.com/nichiki/markitdown-rag-sample.git
+   cd markitdown-rag-sample
    ```
 
 2. 仮想環境を作成して有効化
